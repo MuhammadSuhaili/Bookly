@@ -106,45 +106,44 @@ export default function HomePage() {
       <PublicNav />
       <main className="flex-1">
         {/* Hero */}
-        <section className="bg-gradient-to-br from-teal-600 via-cyan-600 to-teal-800 text-white">
-          <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28">
-            <div className="grid items-center gap-10 lg:grid-cols-2">
-              <div>
-                <p className="text-sm font-medium uppercase tracking-wider text-teal-100">
-                  Booking, made simple
-                </p>
-                <h1 className="mt-3 text-4xl font-bold leading-tight sm:text-5xl">
-                  Discover services and book in seconds
-                </h1>
-                <p className="mt-4 text-lg text-teal-100">
-                  From wellness to home services, find trusted professionals and
-                  reserve your spot online.
-                </p>
-                <div className="mt-8 flex flex-wrap gap-3">
-                  <Link href="/services">
-                    <Button size="lg" className="bg-white text-teal-700 hover:bg-teal-50">
-                      Browse services
-                      <Icon name="arrowRight" size={18} />
-                    </Button>
-                  </Link>
-                  <Link href="/register">
-                    <Button
-                      size="lg"
-                      variant="outline"
-                      className="border-white/40 bg-transparent text-white hover:bg-white/10"
-                    >
-                      Create account
-                    </Button>
-                  </Link>
-                </div>
-              </div>
-              <div className="hidden lg:block">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=900&q=70&auto=format&fit=crop"
-                  alt="Premium spa treatment"
-                  className="h-[420px] w-full rounded-2xl object-cover shadow-2xl ring-4 ring-white/20"
-                />
+        <section className="relative overflow-hidden bg-slate-900 text-white">
+          <div className="absolute inset-0 z-0">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="https://images.unsplash.com/photo-1600334129128-685c5582fd35?w=1600&q=80&auto=format&fit=crop"
+              alt="Aesthetic spa background"
+              className="h-full w-full object-cover opacity-45 filter brightness-75 scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-900/60 to-transparent" />
+          </div>
+          <div className="relative z-10 mx-auto max-w-6xl px-4 py-24 sm:px-6 sm:py-32">
+            <div className="max-w-2xl lg:max-w-xl">
+              <p className="text-sm font-semibold uppercase tracking-wider text-teal-400">
+                Booking, made simple
+              </p>
+              <h1 className="mt-3 text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl md:text-6xl">
+                Discover services and book in seconds
+              </h1>
+              <p className="mt-6 text-lg text-slate-300 leading-relaxed">
+                From wellness to home services, find trusted professionals and
+                reserve your spot online.
+              </p>
+              <div className="mt-10 flex flex-wrap gap-4">
+                <Link href="/services">
+                  <Button size="lg" className="bg-teal-600 text-white hover:bg-teal-500 shadow-lg shadow-teal-600/30">
+                    Browse services
+                    <Icon name="arrowRight" size={18} />
+                  </Button>
+                </Link>
+                <Link href="/register">
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="border-slate-300 bg-white/10 text-white backdrop-blur hover:bg-white/20"
+                  >
+                    Create account
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
