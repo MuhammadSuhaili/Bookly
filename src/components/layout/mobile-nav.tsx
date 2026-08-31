@@ -69,7 +69,7 @@ export function MobileNav({
                     onClick={() => setOpen(false)}
                     className="rounded-lg px-3 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-100"
                   >
-                    {user.firstName ?? "My account"}
+                    {user.role === "ADMIN" ? "Admin Panel" : "My account"}
                   </Link>
                   {onLogout?.onClick && (
                     <button

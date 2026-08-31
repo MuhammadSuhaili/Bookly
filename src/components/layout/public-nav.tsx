@@ -38,7 +38,7 @@ export async function PublicNav() {
             <>
               <Link href={session.role === "ADMIN" ? "/admin" : "/account"} className="hidden sm:inline-flex">
                 <Button variant="outline" size="sm" icon="user">
-                  {session.firstName}
+                  {session.role === "ADMIN" ? "Admin Panel" : "My account"}
                 </Button>
               </Link>
               <div className="hidden sm:block">
