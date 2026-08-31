@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useEffect, useState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/toast";
 import { Button } from "@/components/ui/button";
@@ -28,9 +28,12 @@ export function BookingRowActions({
     { ok: false, errors: {} },
   );
 
+  const handled = useRef<ActionResult>(null);
   useEffect(() => {
     if (!state) return;
+    if (handled.current === state) return;
     if (state.ok) {
+      handled.current = state;
       toast.success("Booking cancelled", state.message);
       router.refresh();
       setTimeout(() => setCancelOpen(false), 0);
@@ -72,6 +75,7 @@ export function BookingRowActions({
         description="Move this booking to a new state."
       >
         <BookingStatusForm
+          key={String(statusOpen)}
           bookingId={bookingId}
           currentStatus={status}
           onClose={() => setStatusOpen(false)}

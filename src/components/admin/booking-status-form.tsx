@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useEffect } from "react";
+import { useActionState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/toast";
 import { Button } from "@/components/ui/button";
@@ -53,13 +53,16 @@ export function BookingStatusForm({
   const toast = useToast();
   const allowed = ALL_STATUSES.filter((s) => s !== currentStatus && canTransition(currentStatus, s));
 
-  const [state, action, pending] = useActionState<ActionResult, FormData>(
+  const [state, action, pending] = useActionState<ActionResult | null, FormData>(
     adminChangeBookingStatusAction,
-    { ok: false, errors: {} },
+    null,
   );
 
+  const handled = useRef<ActionResult | null>(null);
   useEffect(() => {
     if (!state) return;
+    if (handled.current === state) return;
+    handled.current = state;
     if (state.ok) {
       toast.success("Status updated", state.message);
       router.refresh();
