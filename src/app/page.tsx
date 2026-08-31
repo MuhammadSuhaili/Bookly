@@ -1,9 +1,11 @@
+import { Suspense } from "react";
 import Link from "next/link";
 import { PublicNav } from "@/components/layout/public-nav";
 import { PublicFooter } from "@/components/layout/public-footer";
 import { Button } from "@/components/ui/button";
 import { Icon, type IconName } from "@/components/icons";
 import { ServiceCardItem } from "@/components/service/service-card";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   getCategories,
   getFeaturedServices,
@@ -14,13 +16,91 @@ export const metadata = {
   title: "Home",
 };
 
-export default async function HomePage() {
-  const [categories, featured, popular] = await Promise.all([
-    getCategories(),
-    getFeaturedServices(),
-    getPopularServices(),
-  ]);
+async function CategoriesSection() {
+  const categories = await getCategories();
+  return (
+    <section className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
+      <h2 className="text-2xl font-bold text-slate-900">Browse by category</h2>
+      <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+        {categories.map((cat) => (
+          <Link
+            key={cat.id}
+            href={`/services?category=${cat.slug}`}
+            className="group flex flex-col items-center gap-3 rounded-xl border border-slate-200 bg-white p-6 text-center transition-shadow hover:shadow-md"
+          >
+            <span className="flex h-12 w-12 items-center justify-center rounded-full bg-teal-50 text-teal-600 transition-colors group-hover:bg-teal-600 group-hover:text-white">
+              <Icon name={(cat.icon as IconName) ?? "category"} size={24} />
+            </span>
+            <span className="text-sm font-semibold text-slate-800">{cat.name}</span>
+          </Link>
+        ))}
+      </div>
+    </section>
+  );
+}
 
+function CategoriesSkeleton() {
+  return (
+    <section className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
+      <Skeleton className="h-8 w-56" />
+      <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+        {Array.from({ length: 5 }).map((_, i) => (
+          <Skeleton key={i} className="h-32 rounded-xl" />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+async function FeaturedSection() {
+  const featured = await getFeaturedServices();
+  return (
+    <section className="bg-slate-50">
+      <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
+        <div className="flex items-center justify-between">
+          <h2 className="text-2xl font-bold text-slate-900">Featured services</h2>
+          <Link
+            href="/services"
+            className="inline-flex items-center gap-1 text-sm font-medium text-teal-600 hover:text-teal-700"
+          >
+            View all <Icon name="arrowRight" size={15} />
+          </Link>
+        </div>
+        <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {featured.map((s) => (
+            <ServiceCardItem key={s.id} service={s} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+async function PopularSection() {
+  const popular = await getPopularServices();
+  return (
+    <section className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
+      <h2 className="text-2xl font-bold text-slate-900">Most popular</h2>
+      <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {popular.map((s) => (
+          <ServiceCardItem key={s.id} service={s} />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function ServicesSkeleton() {
+  return (
+    <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {Array.from({ length: 3 }).map((_, i) => (
+        <Skeleton key={i} className="h-72" />
+      ))}
+    </div>
+  );
+}
+
+export default function HomePage() {
   return (
     <div className="flex min-h-screen flex-col">
       <PublicNav />
@@ -71,53 +151,19 @@ export default async function HomePage() {
         </section>
 
         {/* Categories */}
-        <section className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
-          <h2 className="text-2xl font-bold text-slate-900">Browse by category</h2>
-          <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
-            {categories.map((cat) => (
-              <Link
-                key={cat.id}
-                href={`/services?category=${cat.slug}`}
-                className="group flex flex-col items-center gap-3 rounded-xl border border-slate-200 bg-white p-6 text-center transition-shadow hover:shadow-md"
-              >
-                <span className="flex h-12 w-12 items-center justify-center rounded-full bg-teal-50 text-teal-600 transition-colors group-hover:bg-teal-600 group-hover:text-white">
-                  <Icon name={(cat.icon as IconName) ?? "category"} size={24} />
-                </span>
-                <span className="text-sm font-semibold text-slate-800">{cat.name}</span>
-              </Link>
-            ))}
-          </div>
-        </section>
+        <Suspense fallback={<CategoriesSkeleton />}>
+          <CategoriesSection />
+        </Suspense>
 
         {/* Featured */}
-        <section className="bg-slate-50">
-          <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
-            <div className="flex items-center justify-between">
-              <h2 className="text-2xl font-bold text-slate-900">Featured services</h2>
-              <Link
-                href="/services"
-                className="inline-flex items-center gap-1 text-sm font-medium text-teal-600 hover:text-teal-700"
-              >
-                View all <Icon name="arrowRight" size={15} />
-              </Link>
-            </div>
-            <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {featured.map((s) => (
-                <ServiceCardItem key={s.id} service={s} />
-              ))}
-            </div>
-          </div>
-        </section>
+        <Suspense fallback={<ServicesSkeleton />}>
+          <FeaturedSection />
+        </Suspense>
 
         {/* Popular */}
-        <section className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
-          <h2 className="text-2xl font-bold text-slate-900">Most popular</h2>
-          <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {popular.map((s) => (
-              <ServiceCardItem key={s.id} service={s} />
-            ))}
-          </div>
-        </section>
+        <Suspense fallback={<ServicesSkeleton />}>
+          <PopularSection />
+        </Suspense>
       </main>
       <PublicFooter />
     </div>
