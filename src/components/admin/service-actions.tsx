@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useEffect, useState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/toast";
 import { Button } from "@/components/ui/button";
@@ -51,16 +51,24 @@ export function ServiceActions({
     { ok: false, errors: {} },
   );
 
+  const delHandled = useRef<AdminActionResult>(null);
   useEffect(() => {
+    if (!delState) return;
+    if (delHandled.current === delState) return;
     if (delState?.ok) {
+      delHandled.current = delState;
       toast.success("Service deleted", delState.message);
       router.refresh();
       setTimeout(() => setDeleteOpen(false), 0);
     }
   }, [delState, router, toast]);
 
+  const toggleHandled = useRef<AdminActionResult>(null);
   useEffect(() => {
+    if (!toggleState) return;
+    if (toggleHandled.current === toggleState) return;
     if (toggleState?.ok) {
+      toggleHandled.current = toggleState;
       toast.success("Service updated", toggleState.message);
       router.refresh();
     }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useEffect } from "react";
+import { useActionState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/toast";
 import { Button } from "@/components/ui/button";
@@ -52,9 +52,12 @@ export function ServiceFormModal({
     { ok: false, errors: {} },
   );
 
+  const handled = useRef<AdminActionResult>(null);
   useEffect(() => {
     if (!state) return;
+    if (handled.current === state) return;
     if (state.ok) {
+      handled.current = state;
       toast.success(isEdit ? "Service updated" : "Service created", state.message);
       router.refresh();
       onClose();

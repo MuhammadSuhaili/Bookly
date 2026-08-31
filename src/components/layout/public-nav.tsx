@@ -9,7 +9,7 @@ export async function PublicNav() {
   const session = await getCurrentUser();
 
   return (
-    <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/90 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-slate-200 bg-white shadow-sm">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
         <Link href="/" className="flex items-center gap-2 font-semibold text-slate-900">
           <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-teal-600 text-white">

@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useEffect, useState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/toast";
 import { Button } from "@/components/ui/button";
@@ -22,9 +22,12 @@ export function CreateTimeSlotButton({ scheduleId }: { scheduleId: string }) {
     { ok: false, errors: {} },
   );
 
+  const handled = useRef<AdminActionResult>(null);
   useEffect(() => {
     if (!state) return;
+    if (handled.current === state) return;
     if (state.ok) {
+      handled.current = state;
       toast.success("Time slot added", state.message);
       router.refresh();
       setTimeout(() => setOpen(false), 0);
@@ -85,8 +88,12 @@ export function DeleteTimeSlotButton({ slotId }: { slotId: string }) {
     { ok: false, errors: {} },
   );
 
+  const handled = useRef<AdminActionResult>(null);
   useEffect(() => {
+    if (!state) return;
+    if (handled.current === state) return;
     if (state?.ok) {
+      handled.current = state;
       toast.success("Time slot deleted", state.message);
       router.refresh();
     }

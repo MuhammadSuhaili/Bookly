@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useEffect, useState, useTransition } from "react";
+import { useActionState, useEffect, useRef, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/toast";
 import { Button } from "@/components/ui/button";
@@ -49,9 +49,12 @@ export function BookingForm({
     { ok: false, errors: {} },
   );
 
+  const handled = useRef<ActionResult>(null);
   useEffect(() => {
     if (!state) return;
+    if (handled.current === state) return;
     if (state.ok) {
+      handled.current = state;
       toast.success("Booking created", state.message);
       router.push(`/account/bookings/${state.bookingId}`);
     }

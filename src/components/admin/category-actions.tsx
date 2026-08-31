@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useEffect, useState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/toast";
 import { Button } from "@/components/ui/button";
@@ -31,8 +31,12 @@ export function CategoryActions({ category }: { category: CategoryForAction }) {
     { ok: false, errors: {} },
   );
 
+  const handled = useRef<AdminActionResult>(null);
   useEffect(() => {
+    if (!state) return;
+    if (handled.current === state) return;
     if (state?.ok) {
+      handled.current = state;
       toast.success("Category deleted", state.message);
       router.refresh();
       setTimeout(() => setDeleteOpen(false), 0);
