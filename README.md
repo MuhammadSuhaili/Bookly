@@ -1,36 +1,85 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Bookly — Booking Management System
+
+A modern booking platform built with **Next.js** to discover services, schedule appointments, and manage reservations. Supports customers and administrators with full booking lifecycle management.
+
+## Features
+
+- **Service catalog** — browse services by category, with premium images, pricing, ratings, and availability.
+- **Online booking** — pick a date and an available time slot, then confirm with customer details.
+- **Customer account** — dashboard, booking history, booking details, and cancellation.
+- **Admin dashboard** — manage services, categories, schedules & time slots, bookings, reports, and audit logs.
+- **Role-based auth** — customer vs. admin access with session-based security.
+- **Responsive UI** — comfortable on mobile, tablet, and desktop (teal theme, mobile navigation, and drawer-based admin sidebar).
+- **Indonesian locale** — prices displayed in Rupiah (IDR), e.g. Rp 250.000.
+
+## Tech Stack
+
+- **Next.js** (App Router)
+- **Drizzle ORM** + **PostgreSQL** (Neon)
+- **Tailwind CSS**
+- **TypeScript**
 
 ## Getting Started
 
-First, run the development server:
+### 1. Install dependencies
+
+```bash
+npm install
+```
+
+### 2. Configure environment
+
+Copy `.env.example` to `.env` and fill in the values:
+
+```bash
+cp .env.example .env
+```
+
+Required variables:
+
+| Variable               | Description                                        |
+| ---------------------- | -------------------------------------------------- |
+| `DATABASE_URL`         | PostgreSQL connection string (e.g. Neon)           |
+| `AUTH_SECRET`          | Random secret used to sign session cookies         |
+| `NEXT_PUBLIC_APP_URL`  | Public base URL (e.g. `http://localhost:3000`)      |
+| `APP_ENV`              | `development` \| `production`                      |
+
+### 3. Set up the database
+
+Generate and run migrations, then seed sample data:
+
+```bash
+npm run db:generate
+npm run db:migrate
+npm run db:seed
+```
+
+### 4. Run the dev server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Demo Accounts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+After seeding, you can log in with:
 
-## Learn More
+| Role    | Email                  | Password     |
+| ------- | ---------------------- | ------------ |
+| Admin   | `admin@booking.app`    | `Password123!` |
+| Customer| `customer@booking.app` | `Password123!` |
 
-To learn more about Next.js, take a look at the following resources:
+## Scripts
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Command             | Description                           |
+| ------------------- | ------------------------------------- |
+| `npm run dev`       | Start the development server          |
+| `npm run build`     | Build the production bundle           |
+| `npm run start`     | Start the production server           |
+| `npm run lint`      | Run ESLint                            |
+| `npm run typecheck` | Run TypeScript type checking          |
+| `npm run db:generate` | Generate Drizzle migrations        |
+| `npm run db:migrate`  | Apply Drizzle migrations           |
+| `npm run db:seed`     | Seed the database with sample data  |

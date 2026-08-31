@@ -45,3 +45,7 @@ next-env.d.ts
 dev.log
 *.log
 checkdb.cjs
+
+# local AI/editor context (not for public repo)
+CLAUDE.md
+AGENTS.md
