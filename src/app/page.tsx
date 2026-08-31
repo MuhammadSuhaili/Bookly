@@ -106,31 +106,31 @@ export default function HomePage() {
       <PublicNav />
       <main className="flex-1">
         {/* Hero */}
-        <section className="relative overflow-hidden bg-slate-900 text-white">
+        <section className="relative overflow-hidden bg-slate-50 text-slate-900">
           <div className="absolute inset-0 z-0">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1600&q=80&auto=format&fit=crop"
               alt="Professional booking service background"
-              className="h-full w-full object-cover opacity-40 filter brightness-75 scale-105"
+              className="h-full w-full object-cover opacity-15 filter brightness-100 scale-105"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-900/60 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-teal-50/90 via-slate-50/75 to-transparent" />
           </div>
           <div className="relative z-10 mx-auto max-w-6xl px-4 py-24 sm:px-6 sm:py-32">
             <div className="max-w-2xl lg:max-w-xl">
-              <p className="text-sm font-semibold uppercase tracking-wider text-teal-400">
+              <p className="text-sm font-semibold uppercase tracking-wider text-teal-600">
                 Booking, made simple
               </p>
-              <h1 className="mt-3 text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl md:text-6xl">
+              <h1 className="mt-3 text-4xl font-extrabold leading-tight tracking-tight text-slate-900 sm:text-5xl md:text-6xl">
                 Discover services and book in seconds
               </h1>
-              <p className="mt-6 text-lg text-slate-300 leading-relaxed">
+              <p className="mt-6 text-lg text-slate-600 leading-relaxed">
                 From wellness to home services, find trusted professionals and
                 reserve your spot online.
               </p>
               <div className="mt-10 flex flex-wrap gap-4">
                 <Link href="/services">
-                  <Button size="lg" className="bg-teal-600 text-white hover:bg-teal-500 shadow-lg shadow-teal-600/30">
+                  <Button size="lg" className="bg-teal-600 text-white hover:bg-teal-700 shadow-lg shadow-teal-600/20">
                     Browse services
                     <Icon name="arrowRight" size={18} />
                   </Button>
@@ -139,7 +139,7 @@ export default function HomePage() {
                   <Button
                     size="lg"
                     variant="outline"
-                    className="border-slate-300 bg-white/10 text-white backdrop-blur hover:bg-white/20"
+                    className="border-slate-300 bg-white text-slate-700 hover:bg-slate-50"
                   >
                     Create account
                   </Button>
