@@ -106,31 +106,32 @@ export default function HomePage() {
       <PublicNav />
       <main className="flex-1">
         {/* Hero */}
-        <section className="relative overflow-hidden bg-slate-100 py-20 sm:py-32 flex items-center min-h-[500px] sm:min-h-[600px]">
+        <section className="relative overflow-hidden bg-slate-900 text-white">
           <div className="absolute inset-0 z-0">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1600&q=80&auto=format&fit=crop"
               alt="Professional booking service background"
-              className="h-full w-full object-cover brightness-95 scale-100"
+              className="h-full w-full object-cover scale-100"
             />
-            <div className="absolute inset-0 bg-slate-900/10" />
+            {/* Overlay ideal: perpaduan gelap ke transparan agar text putih tajam tapi gambar di sisi kanan tetap bersih & menyatu */}
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-900/75 to-slate-900/30" />
           </div>
-          <div className="relative z-10 mx-auto w-full max-w-6xl px-4 sm:px-6">
-            <div className="max-w-xl rounded-2xl border border-white/40 bg-white/80 p-8 shadow-2xl backdrop-blur-md sm:p-10">
-              <p className="text-sm font-semibold uppercase tracking-wider text-teal-600">
+          <div className="relative z-10 mx-auto max-w-6xl px-4 py-24 sm:px-6 sm:py-32">
+            <div className="max-w-2xl lg:max-w-xl">
+              <p className="text-sm font-semibold uppercase tracking-wider text-teal-400">
                 Booking, made simple
               </p>
-              <h1 className="mt-3 text-3xl font-extrabold leading-tight tracking-tight text-slate-900 sm:text-4xl md:text-5xl">
+              <h1 className="mt-3 text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl md:text-6xl">
                 Discover services and book in seconds
               </h1>
-              <p className="mt-4 text-base text-slate-655 leading-relaxed text-slate-600">
+              <p className="mt-6 text-lg text-slate-300 leading-relaxed">
                 From wellness to home services, find trusted professionals and
                 reserve your spot online.
               </p>
-              <div className="mt-8 flex flex-wrap gap-4">
+              <div className="mt-10 flex flex-wrap gap-4">
                 <Link href="/services">
-                  <Button size="lg" className="bg-teal-600 text-white hover:bg-teal-700 shadow-lg shadow-teal-600/20">
+                  <Button size="lg" className="bg-teal-600 text-white hover:bg-teal-700 shadow-lg shadow-teal-600/30">
                     Browse services
                     <Icon name="arrowRight" size={18} />
                   </Button>
@@ -139,7 +140,7 @@ export default function HomePage() {
                   <Button
                     size="lg"
                     variant="outline"
-                    className="border-slate-300 bg-white text-slate-700 hover:bg-slate-50 shadow-sm"
+                    className="border-white/30 bg-white/10 text-white backdrop-blur-sm hover:bg-white/20"
                   >
                     Create account
                   </Button>
