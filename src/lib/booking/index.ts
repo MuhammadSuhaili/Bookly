@@ -79,7 +79,7 @@ export async function createBooking(input: CreateBookingInput): Promise<{
     }
 
     /* Verify the schedule belongs to the service and is open. */
-    const scheduleRes = await client.query<{ service_id: string; date: string; is_open: boolean }>(
+    const scheduleRes = await client.query<{ service_id: string; date: Date | string; is_open: boolean }>(
       `SELECT service_id, date, is_open FROM schedules WHERE id = $1`,
       [input.scheduleId],
     );
@@ -92,7 +92,13 @@ export async function createBooking(input: CreateBookingInput): Promise<{
       await client.query("ROLLBACK");
       throw new BookingError("SCHEDULE_CLOSED", "This day is not available for booking.");
     }
-    if (schedule.date !== input.date) {
+    const scheduleDate =
+      schedule.date instanceof Date
+        ? `${schedule.date.getUTCFullYear()}-${String(
+            schedule.date.getUTCMonth() + 1,
+          ).padStart(2, "0")}-${String(schedule.date.getUTCDate()).padStart(2, "0")}`
+        : String(schedule.date).slice(0, 10);
+    if (scheduleDate !== input.date) {
       await client.query("ROLLBACK");
       throw new BookingError("DATE_MISMATCH", "The date does not match the schedule.");
     }
