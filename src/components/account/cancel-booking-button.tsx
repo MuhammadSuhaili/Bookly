@@ -1,12 +1,13 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 import { cancelBookingAction } from "@/server/actions/booking";
 import { Button } from "@/components/ui/button";
 import { Modal } from "@/components/ui/modal";
 import { Textarea } from "@/components/ui/textarea";
 import { Field } from "@/components/ui/field";
 import { useToast } from "@/components/ui/toast";
+import type { ActionResult } from "@/server/actions/booking";
 
 export function CancelBookingButton({ bookingId }: { bookingId: string }) {
   const [open, setOpen] = useState(false);
@@ -15,15 +16,19 @@ export function CancelBookingButton({ bookingId }: { bookingId: string }) {
     cancelBookingAction,
     null,
   );
+  const handled = useRef<ActionResult>(null);
 
-  if (state?.ok === true) {
-    setOpen(false);
-    success("Booking Cancelled", state.message);
-  }
-
-  if (state?.ok === false && state.errors.form) {
-    toastError("Cancellation Failed", state.errors.form);
-  }
+  useEffect(() => {
+    if (!state) return;
+    if (handled.current === state) return;
+    handled.current = state;
+    if (state.ok) {
+      setOpen(false);
+      success("Booking Cancelled", state.message);
+    } else if (state.errors?.form) {
+      toastError("Cancellation Failed", state.errors.form);
+    }
+  }, [state, success, toastError]);
 
   return (
     <>
