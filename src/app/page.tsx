@@ -1,69 +1,125 @@
-import Image from "next/image";
+import Link from "next/link";
+import { PublicNav } from "@/components/layout/public-nav";
+import { PublicFooter } from "@/components/layout/public-footer";
+import { Button } from "@/components/ui/button";
+import { Icon, type IconName } from "@/components/icons";
+import { ServiceCardItem } from "@/components/service/service-card";
+import {
+  getCategories,
+  getFeaturedServices,
+  getPopularServices,
+} from "@/lib/services";
 
-export default function Home() {
+export const metadata = {
+  title: "Home",
+};
+
+export default async function HomePage() {
+  const [categories, featured, popular] = await Promise.all([
+    getCategories(),
+    getFeaturedServices(),
+    getPopularServices(),
+  ]);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+    <div className="flex min-h-screen flex-col">
+      <PublicNav />
+      <main className="flex-1">
+        {/* Hero */}
+        <section className="bg-gradient-to-br from-teal-600 via-cyan-600 to-teal-800 text-white">
+          <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28">
+            <div className="grid items-center gap-10 lg:grid-cols-2">
+              <div>
+                <p className="text-sm font-medium uppercase tracking-wider text-teal-100">
+                  Booking, made simple
+                </p>
+                <h1 className="mt-3 text-4xl font-bold leading-tight sm:text-5xl">
+                  Discover services and book in seconds
+                </h1>
+                <p className="mt-4 text-lg text-teal-100">
+                  From wellness to home services, find trusted professionals and
+                  reserve your spot online.
+                </p>
+                <div className="mt-8 flex flex-wrap gap-3">
+                  <Link href="/services">
+                    <Button size="lg" className="bg-white text-teal-700 hover:bg-teal-50">
+                      Browse services
+                      <Icon name="arrowRight" size={18} />
+                    </Button>
+                  </Link>
+                  <Link href="/register">
+                    <Button
+                      size="lg"
+                      variant="outline"
+                      className="border-white/40 bg-transparent text-white hover:bg-white/10"
+                    >
+                      Create account
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+              <div className="hidden lg:block">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=900&q=70&auto=format&fit=crop"
+                  alt="Premium spa treatment"
+                  className="h-[420px] w-full rounded-2xl object-cover shadow-2xl ring-4 ring-white/20"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Categories */}
+        <section className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
+          <h2 className="text-2xl font-bold text-slate-900">Browse by category</h2>
+          <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+            {categories.map((cat) => (
+              <Link
+                key={cat.id}
+                href={`/services?category=${cat.slug}`}
+                className="group flex flex-col items-center gap-3 rounded-xl border border-slate-200 bg-white p-6 text-center transition-shadow hover:shadow-md"
+              >
+                <span className="flex h-12 w-12 items-center justify-center rounded-full bg-teal-50 text-teal-600 transition-colors group-hover:bg-teal-600 group-hover:text-white">
+                  <Icon name={(cat.icon as IconName) ?? "category"} size={24} />
+                </span>
+                <span className="text-sm font-semibold text-slate-800">{cat.name}</span>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        {/* Featured */}
+        <section className="bg-slate-50">
+          <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
+            <div className="flex items-center justify-between">
+              <h2 className="text-2xl font-bold text-slate-900">Featured services</h2>
+              <Link
+                href="/services"
+                className="inline-flex items-center gap-1 text-sm font-medium text-teal-600 hover:text-teal-700"
+              >
+                View all <Icon name="arrowRight" size={15} />
+              </Link>
+            </div>
+            <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {featured.map((s) => (
+                <ServiceCardItem key={s.id} service={s} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Popular */}
+        <section className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
+          <h2 className="text-2xl font-bold text-slate-900">Most popular</h2>
+          <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {popular.map((s) => (
+              <ServiceCardItem key={s.id} service={s} />
+            ))}
+          </div>
+        </section>
       </main>
+      <PublicFooter />
     </div>
   );
 }
