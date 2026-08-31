@@ -23,18 +23,38 @@ const navItems: NavItem[] = [
   { href: "/admin/audit", label: "Audit Log", icon: "activity" },
 ];
 
-function SidebarContent({ pathname }: { pathname: string }) {
+function SidebarContent({
+  pathname,
+  dark,
+}: {
+  pathname: string;
+  dark?: boolean;
+}) {
   const [, action, pending] = useActionState(logoutAction, null);
+
+  const brand = dark
+    ? { logo: "bg-teal-500 text-white", title: "text-white", sub: "text-teal-300" }
+    : { logo: "bg-teal-100 text-teal-600", title: "text-slate-900", sub: "text-slate-500" };
+  const link = dark
+    ? {
+        base: "text-teal-200 hover:bg-teal-900 hover:text-white",
+        active: "bg-teal-500 text-white",
+      }
+    : {
+        base: "text-slate-600 hover:bg-slate-100 hover:text-slate-900",
+        active: "bg-teal-600 text-white",
+      };
+  const divider = dark ? "border-teal-900" : "border-slate-200";
 
   return (
     <div className="flex h-full flex-col">
       <div className="flex items-center gap-2 px-5 py-5">
-        <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-teal-500 text-white">
+        <span className={`flex h-9 w-9 items-center justify-center rounded-lg ${brand.logo}`}>
           <Icon name="logo" size={18} />
         </span>
         <div>
-          <p className="text-sm font-semibold text-white">Bookly</p>
-          <p className="text-xs text-teal-300">Admin</p>
+          <p className={`text-sm font-semibold ${brand.title}`}>Bookly</p>
+          <p className={`text-xs ${brand.sub}`}>Admin</p>
         </div>
       </div>
 
@@ -50,9 +70,7 @@ function SidebarContent({ pathname }: { pathname: string }) {
               href={item.href}
               className={cn(
                 "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
-                active
-                  ? "bg-teal-500 text-white"
-                  : "text-teal-200 hover:bg-teal-900 hover:text-white",
+                active ? link.active : link.base,
               )}
             >
               <Icon name={item.icon} size={18} />
@@ -62,10 +80,10 @@ function SidebarContent({ pathname }: { pathname: string }) {
         })}
       </nav>
 
-      <div className="border-t border-teal-900 p-3">
+      <div className={`border-t p-3 ${divider}`}>
         <Link
           href="/"
-          className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-teal-200 transition-colors hover:bg-teal-900 hover:text-white"
+          className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${link.base}`}
         >
           <Icon name="home" size={18} />
           View site
@@ -74,7 +92,7 @@ function SidebarContent({ pathname }: { pathname: string }) {
           <button
             type="submit"
             disabled={pending}
-            className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-teal-200 transition-colors hover:bg-teal-900 hover:text-white disabled:opacity-50"
+            className={`flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${link.base} disabled:opacity-50`}
           >
             <Icon name="logout" size={18} />
             Log out
@@ -111,7 +129,7 @@ export function AdminSidebar() {
 
       {/* Desktop sidebar */}
       <aside className="sticky top-0 hidden h-screen w-60 shrink-0 flex-col bg-teal-950 text-teal-100 lg:flex">
-        <SidebarContent pathname={pathname} />
+        <SidebarContent pathname={pathname} dark />
       </aside>
 
       {/* Mobile drawer */}
@@ -121,13 +139,13 @@ export function AdminSidebar() {
             className="absolute inset-0 bg-slate-900/60"
             onClick={() => setOpen(false)}
           />
-          <aside className="absolute inset-y-0 left-0 w-64 bg-teal-950 text-teal-100 shadow-xl">
-            <SidebarContent pathname={pathname} />
+          <aside className="absolute inset-y-0 left-0 w-64 border-r border-slate-200 bg-white text-slate-800 shadow-xl">
+            <SidebarContent pathname={pathname} dark={false} />
             <button
               type="button"
               onClick={() => setOpen(false)}
               aria-label="Close menu"
-              className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-lg text-teal-200 transition-colors hover:bg-teal-900"
+              className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-lg text-slate-500 transition-colors hover:bg-slate-100"
             >
               <Icon name="close" size={20} />
             </button>

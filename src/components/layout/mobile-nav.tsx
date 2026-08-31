@@ -31,7 +31,7 @@ export function MobileNav({
             className="absolute inset-0 bg-slate-900/40"
             onClick={() => setOpen(false)}
           />
-          <div className="absolute right-0 top-0 h-full w-64 bg-white p-4 shadow-xl">
+          <div className="absolute right-0 top-0 h-full w-64 border-l border-slate-200 bg-white p-4 shadow-xl">
             <div className="flex items-center justify-between">
               <span className="text-sm font-semibold text-slate-900">Menu</span>
               <button
