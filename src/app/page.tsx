@@ -110,9 +110,9 @@ export default function HomePage() {
           <div className="absolute inset-0 z-0">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="https://images.unsplash.com/photo-1600334129128-685c5582fd35?w=1600&q=80&auto=format&fit=crop"
-              alt="Aesthetic spa background"
-              className="h-full w-full object-cover opacity-45 filter brightness-75 scale-105"
+              src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1600&q=80&auto=format&fit=crop"
+              alt="Professional booking service background"
+              className="h-full w-full object-cover opacity-40 filter brightness-75 scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-900/60 to-transparent" />
           </div>
