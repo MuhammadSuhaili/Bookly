@@ -141,7 +141,7 @@ export function BookingForm({
         </Field>
       </div>
       <Field label="Phone" htmlFor="customerPhone">
-        <Input id="customerPhone" name="customerPhone" placeholder="+1 555 0100" leadingIcon="phone" error={error.customerPhone} required />
+        <Input id="customerPhone" name="customerPhone" placeholder="0812-3456-7890" leadingIcon="phone" error={error.customerPhone} required />
       </Field>
       <Field label="Notes" htmlFor="notes">
         <Textarea id="notes" name="notes" rows={3} placeholder="Any special requests…" />

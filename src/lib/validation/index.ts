@@ -16,7 +16,7 @@ export const uuidSchema = z.uuid("Invalid identifier");
 export const phoneSchema = z
   .string()
   .max(30)
-  .regex(/^[0-9+()\-\s]*$/, "Invalid phone number")
+  .regex(/^[0-9+()\-\s]*$/, "Nomor telepon tidak valid (Contoh: 0812-3456-7890 atau +62 812-3456-7890)")
   .optional()
   .or(z.literal(""));
 export const nameSchema = z
@@ -96,7 +96,7 @@ export const bookingInputSchema = z.object({
     .string()
     .min(1, "Phone is required")
     .max(30)
-    .regex(/^[0-9+()\-\s]*$/, "Invalid phone number"),
+    .regex(/^[0-9+()\-\s]*$/, "Nomor telepon tidak valid (Contoh: 0812-3456-7890 atau +62 812-3456-7890)"),
   notes: z.string().max(2000).optional().or(z.literal("")),
 });
 

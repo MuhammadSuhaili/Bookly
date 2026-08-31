@@ -69,7 +69,7 @@ async function main() {
       passwordHash: pw,
       firstName: "Aisha",
       lastName: "Admin",
-      phone: "+1 555 0100",
+      phone: "0811-3456-0100",
       emailVerified: true,
       isActive: true,
     })
@@ -77,10 +77,10 @@ async function main() {
   const adminId = adminUser[0].id;
 
   const customers = [
-    { email: "customer@booking.app", firstName: "Budi", lastName: "Santoso", phone: "+1 555 0101" },
-    { email: "siti@booking.app", firstName: "Siti", lastName: "Rahayu", phone: "+1 555 0102" },
-    { email: "agus@booking.app", firstName: "Agus", lastName: "Wijaya", phone: "+1 555 0103" },
-    { email: "dewi@booking.app", firstName: "Dewi", lastName: "Lestari", phone: "+1 555 0104" },
+    { email: "customer@booking.app", firstName: "Budi", lastName: "Santoso", phone: "0812-3456-0101" },
+    { email: "siti@booking.app", firstName: "Siti", lastName: "Rahayu", phone: "0813-3456-0102" },
+    { email: "agus@booking.app", firstName: "Agus", lastName: "Wijaya", phone: "0821-3456-0103" },
+    { email: "dewi@booking.app", firstName: "Dewi", lastName: "Lestari", phone: "0857-3456-0104" },
   ];
   const customerIds: string[] = [];
   for (const c of customers) {

@@ -55,11 +55,11 @@ export function RegisterForm() {
               required
             />
           </Field>
-          <Field label="Phone" htmlFor="phone">
+          <Field label="Phone" htmlFor="phone" hint="Contoh: 0812-3456-7890 atau +62 812-3456-7890">
             <Input
               id="phone"
               name="phone"
-              placeholder="+1 555 0100"
+              placeholder="0812-3456-7890"
               leadingIcon="phone"
               error={errors.phone}
             />
