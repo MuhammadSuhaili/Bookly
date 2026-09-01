@@ -32,16 +32,25 @@ export default async function AccountDashboardPage() {
     <div className="space-y-6">
       <Card>
         <CardContent>
-          <div className="flex items-center gap-4">
-            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-teal-100 text-teal-600">
-              <Icon name="user" size={28} />
+          <div className="flex items-center justify-between gap-4">
+            <div className="flex items-center gap-4">
+              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-teal-100 text-teal-600">
+                <Icon name="user" size={28} />
+              </div>
+              <div>
+                <h2 className="text-lg font-semibold text-slate-900">
+                  {user.firstName} {user.lastName}
+                </h2>
+                <p className="text-sm text-slate-500">{user.email}</p>
+              </div>
             </div>
-            <div>
-              <h2 className="text-lg font-semibold text-slate-900">
-                {user.firstName} {user.lastName}
-              </h2>
-              <p className="text-sm text-slate-500">{user.email}</p>
-            </div>
+            <Link
+              href="/account/profile"
+              className="inline-flex shrink-0 items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50"
+            >
+              <Icon name="edit" size={16} />
+              Edit Profile
+            </Link>
           </div>
         </CardContent>
       </Card>

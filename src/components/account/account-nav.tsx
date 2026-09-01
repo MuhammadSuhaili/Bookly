@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 const tabs = [
   { href: "/account", label: "Dashboard", icon: "dashboard" as const },
   { href: "/account/bookings", label: "Bookings", icon: "calendar" as const },
+  { href: "/account/profile", label: "Profile", icon: "settings" as const },
 ];
 
 export function AccountNav() {
